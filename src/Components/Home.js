@@ -11,8 +11,8 @@ import '../Components/Styles/Home.css'
 export const Home = () => {
   const slideImages = [HomePageImg1,HomePageImg2, HomePageImg3,HomePageImg4];
   const properties = {
-    duration: 1500,
-    transitionDuration: 500,
+    duration: 2000,
+    transitionDuration: 1000,
     infinite: true,
     
   };
