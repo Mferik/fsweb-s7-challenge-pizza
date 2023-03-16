@@ -16,7 +16,7 @@ const schema = yup.object().shape({
     .number()
     .typeError("Numara sayı olarak girilmeli.")
     .required("Lütfen telefon numarası girin.")
-    .min(10, "Telefon numarası 10 hane olarak girilmelidir."),
+    .test('telefon', 'Telefon numarası en az 10 haneli olmalıdır.', val => val && val.toString().length >= 10),
   adet: yup.number().required("Lütfen adet giriniz."),
 
   sucuk: yup.boolean().oneOf([true, false], ""),
@@ -105,12 +105,14 @@ export const Form = () => {
     try {
       await axios.post("https://reqres.in/api/orders", form);
       setYeniSiparis(form);
+      
       navigate("/siparisonay", { state: form });
+     
     } catch (error) {
       console.error(error);
     }
   };
-
+  console.log(yeniSiparis)
   return (
     <div className="siparis-form">
       <form onSubmit={handleSubmit}>

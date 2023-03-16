@@ -1,24 +1,20 @@
-describe('Form Testleri', () => {
-    it('Formu başarıyla doldurup göndermek', () => {
-      cy.visit('http://localhost:3000/pizza');
-      cy.get('select[name="cesit"]').select('margarita');
-    cy.get('input[type="radio"][name="boyut"][value="Small"]').check();
-    cy.get('input[type="checkbox"][name="sucuk"]').check();
-    cy.get('input[type="text"][name="isim"]').type('Fatih Erik');
-    cy.get('input[type="text"][name="adres"]').type('istanbul kartal');
-    cy.get('input[type="tel"][name="telefon"]').type('216-457-7744');
-    cy.get('input[type="number"][name="adet"]').type('2');
-    cy.get('input[name="not"]').type('Lütfen hızlı teslimat yapın.');
-
-    cy.get('input[type="submit"]').should('be.disabled');
-    
-    cy.get('input[type="submit"]').should('be.disabled').then(($btn) => {
-        expect($btn).to.have.attr('disabled', 'disabled');
-        Cypress.$($btn).removeAttr('disabled');
-      });
-
-      cy.get('input[type="submit"]').should('be.enabled').click();
-    
-      
+describe('Sipariş Formu', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:3000/pizza');
   });
-})
+
+  it('Doğru alanları doldurarak formu gönderebilmeli', () => {
+    cy.get('[name="cesit"]').select('Margarita');
+    cy.get('[name="boyut"]').check('Small');
+    cy.get('[name="sucuk"]').check();
+    cy.get('[name="isim"]').type('Fatih Erik');
+    cy.get('[name="adres"]').type('Kartal İstanbul');
+    cy.get('[name="telefon"]').type('5535484578');
+    cy.get('[name="not"]').type('Ekstra kaşar peyniri lütfen.');
+    cy.get('[name="adet"]').clear().type('2');
+    cy.get('[name="button"]').click();
+    cy.url().should('include', '/siparisonay');
+    cy.contains('Fatih Erik').should('exist');
+  })
+  
+});
