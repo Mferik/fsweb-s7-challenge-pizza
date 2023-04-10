@@ -267,7 +267,7 @@ export const Form = () => {
           </label>
           {errors.telefon && <p>{errors.telefon}</p>}
         </div>
-
+      <div className="not-wrapper">
         <div className="not">
           <h3>Sipariş Notu</h3>
           <br />
@@ -281,6 +281,8 @@ export const Form = () => {
             />
           </label>
           {errors.not && <p>{errors.not}</p>}
+        </div>
+        
         </div>
         <div className="adet">
           <h3>Sipariş Adedi</h3>
